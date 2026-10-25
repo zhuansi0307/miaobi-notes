@@ -28,9 +28,22 @@
 
 ## 安装到 MatePad
 
-这是一个网页应用（PWA），不需要应用商店。
+**方式一：安装 APK（推荐）**
+在平板浏览器打开 <https://zhuansi0307.github.io/miaobi-notes/>，点「⬇ 下载安卓版 APK」，下载后点击安装。
+（也可以直接在 [Releases](https://github.com/zhuansi0307/miaobi-notes/releases/latest) 下载。）
+鸿蒙系统如果提示“纯净模式”或“未知来源”，在提示里选择“仍然安装”或临时关闭纯净模式即可。
+App 完全离线运行，导出的图片保存在 相册 → 妙笔笔记。
 
-**方式一：放到 HTTPS 网站上（推荐）**
+**方式二：网页版（PWA）**
+打开 <https://zhuansi0307.github.io/miaobi-notes/>，浏览器菜单 →“添加到桌面”。
+
+> 网页版和 APK 版的笔记是分开存的，互不相通。
+
+**自己打包 APK**：装好 JDK 17 与 Android SDK（build-tools 34、platform 34）后运行 `bash android/build.sh`。
+
+<details><summary>旧说明：自己托管</summary>
+
+**放到 HTTPS 网站上**
 把整个文件夹上传到任意静态网站托管（GitHub Pages、Gitee Pages、Cloudflare Pages 等），
 在平板浏览器打开网址 → 菜单 →“添加到桌面”。之后像普通 App 一样全屏打开，**断网也能用**。
 
@@ -43,6 +56,8 @@ python -m http.server 8765 --bind 0.0.0.0
 
 平板浏览器打开 `http://<电脑的局域网IP>:8765`。
 注意：这种方式需要电脑一直开着；笔记保存在平板浏览器里，与网址绑定，**电脑 IP 变了笔记就“看不到”了**，所以只适合试用。
+
+</details>
 
 ## 文件结构
 

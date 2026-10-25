@@ -1,5 +1,5 @@
 // 离线缓存：首次打开后无网络也能使用
-const CACHE = 'miaobi-v1';
+const CACHE = 'miaobi-v2';
 const FILES = ['./', './index.html', './css/style.css', './js/db.js', './js/geometry.js', './js/beautify.js',
   './js/render.js', './js/app.js', './manifest.webmanifest', './icon.svg', './icon-512.png'];
 self.addEventListener('install', e => {

@@ -677,10 +677,15 @@
     Render.drawPaper(g, { scale: 1, sx: 0, sy: 0, cssW: PAGE_W, cssH: H, dpr: k }, note.paper || 'lines', note.lineHeight || 72, PAGE_W);
     g.setTransform(k, 0, 0, k, 0, 0);
     for (const s of strokes) Render.drawStroke(g, s, renderOpts());
-    const a = document.createElement('a');
-    a.download = (note.title || '笔记') + '.png';
-    a.href = c.toDataURL('image/png');
-    a.click();
+    const name = (note.title || '笔记') + '.png';
+    if (window.MiaobiAndroid) {
+      MiaobiAndroid.saveImage(c.toDataURL('image/png'), name);   // 安卓版：存到相册
+    } else {
+      const a = document.createElement('a');
+      a.download = name;
+      a.href = c.toDataURL('image/png');
+      a.click();
+    }
     closePanels();
   };
 
@@ -695,7 +700,17 @@
   document.addEventListener('visibilitychange', () => { if (document.hidden) saveNow(); });
   window.addEventListener('pagehide', () => saveNow());
 
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  // 安卓外壳调用：返回键、切到后台时保存
+  window.__miaobiBack = () => {
+    if (!note) return false;
+    showHome();
+    return true;
+  };
+  window.__miaobiSave = () => { saveNow(); };
+
+  if (window.MiaobiAndroid) {
+    $('#apkLink').classList.add('hidden');      // 已经是 App 了，不显示下载按钮
+  } else if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }
 
